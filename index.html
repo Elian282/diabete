@@ -282,5 +282,34 @@ function afficherCorrection() {
 <p>Vos réponses ont bien été enregistrées.</p>
 <p>Nous vous remercions pour votre participation 💙</p>
 </div>
+  <script>
+function envoyerDonneesEtContinuer() {
+  const data = {
+    nom: document.getElementById("nom")?.value || "",
+    age: document.getElementById("age")?.value || "",
+    type: document.getElementById("diabeteType")?.value || "",
+    traitements: Array.from(document.querySelectorAll("input[type=checkbox]:checked")).map(e => e.nextSibling.textContent.trim()),
+    satisfaction: document.querySelectorAll("textarea")[0]?.value || "",
+    suivi: document.querySelectorAll("textarea")[1]?.value || "",
+    dasri: document.querySelectorAll("textarea")[2]?.value || "",
+    autres: document.querySelectorAll("textarea")[3]?.value || "",
+    suggestions: document.querySelectorAll("textarea")[4]?.value || ""
+  };
+
+  try {
+    fetch("https://script.google.com/macros/s/AKfycbw2NXKACNmOCRar6yA9o7xgL4qIGADpOv7YVDDTZV_jH57DheL62hmVAPXdJBlkucWjiw/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+  } catch (e) {
+    console.error("Erreur envoi:", e);
+  } finally {
+    changerPage(7);
+  }
+}
+</script>
+
 </body>
 </html>
